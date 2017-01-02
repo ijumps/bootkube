@@ -20,7 +20,8 @@ ExecStart=/usr/lib/coreos/kubelet-wrapper \
   --minimum-container-ttl-duration=3m0s \
   --cluster_dns=10.3.0.10 \
   --cluster_domain=cluster.local \
-  --config=/etc/kubernetes/manifests
+  --config=/etc/kubernetes/manifests \
+  --pod-infra-container-image=cargo.caicloud.io/caicloudgcr/google_containers_pause-amd64:3.0
 
 Restart=always
 RestartSec=5

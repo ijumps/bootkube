@@ -30,7 +30,8 @@ coreos:
           --hostname-override=${COREOS_PUBLIC_IPV4} \
           --node-labels=master=true \
           --cluster_dns=10.3.0.10 \
-          --cluster_domain=cluster.local
+          --cluster_domain=cluster.local \
+          --pod-infra-container-image=cargo.caicloud.io/caicloudgcr/google_containers_pause-amd64:3.0
 
         Restart=always
         RestartSec=5

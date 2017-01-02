@@ -35,7 +35,7 @@ spec:
     spec:
       containers:
       - name: kubelet
-        image: quay.io/coreos/hyperkube:v1.5.1_coreos.0
+        image: cargo.caicloud.io/caicloud/hyperkube:v0.11.2
         command:
         - ./hyperkube
         - kubelet
@@ -51,6 +51,7 @@ spec:
         - --require-kubeconfig
         - --lock-file=/var/run/lock/kubelet.lock
         - --containerized
+        - --pod-infra-container-image=cargo.caicloud.io/caicloudgcr/google_containers_pause-amd64:3.0
         env:
           - name: NODE_NAME
             valueFrom:
@@ -132,7 +133,7 @@ spec:
       hostNetwork: true
       containers:
       - name: kube-apiserver
-        image: quay.io/coreos/hyperkube:v1.5.1_coreos.0
+        image: cargo.caicloud.io/caicloud/hyperkube:v0.11.2
         command:
         - /hyperkube
         - apiserver
@@ -211,7 +212,7 @@ spec:
     spec:
       containers:
       - name: kube-controller-manager
-        image: quay.io/coreos/hyperkube:v1.5.1_coreos.0
+        image: cargo.caicloud.io/caicloud/hyperkube:v0.11.2
         command:
         - ./hyperkube
         - controller-manager
@@ -255,7 +256,7 @@ spec:
     spec:
       containers:
       - name: kube-scheduler
-        image: quay.io/coreos/hyperkube:v1.5.1_coreos.0
+        image: cargo.caicloud.io/caicloud/hyperkube:v0.11.2
         command:
         - ./hyperkube
         - scheduler
@@ -277,7 +278,7 @@ spec:
       hostNetwork: true
       containers:
       - name: kube-proxy
-        image: quay.io/coreos/hyperkube:v1.5.1_coreos.0
+        image: cargo.caicloud.io/caicloud/hyperkube:v0.11.2
         command:
         - /hyperkube
         - proxy
@@ -337,7 +338,7 @@ spec:
     spec:
       containers:
       - name: kubedns
-        image: gcr.io/google_containers/kubedns-amd64:1.9
+        image: cargo.caicloud.io/caicloudgcr/google_containers_kubedns-amd64:1.9
         resources:
           # TODO: Set memory limits when we've profiled the container for large
           # clusters, then set request = limit to keep this container in
@@ -387,7 +388,7 @@ spec:
           name: metrics
           protocol: TCP
       - name: dnsmasq
-        image: gcr.io/google_containers/kube-dnsmasq-amd64:1.4
+        image: cargo.caicloud.io/caicloudgcr/google_containers_kube-dnsmasq-amd64:1.4
         livenessProbe:
           httpGet:
             path: /healthz-dnsmasq
@@ -415,7 +416,7 @@ spec:
             cpu: 150m
             memory: 10Mi
       - name: dnsmasq-metrics
-        image: gcr.io/google_containers/dnsmasq-metrics-amd64:1.0
+        image: cargo.caicloud.io/caicloudgcr/google_containers_dnsmasq-metrics-amd64:1.0
         livenessProbe:
           httpGet:
             path: /metrics
@@ -436,7 +437,7 @@ spec:
           requests:
             memory: 10Mi
       - name: healthz
-        image: gcr.io/google_containers/exechealthz-amd64:1.2
+        image: cargo.caicloud.io/caicloudgcr/google_containers_exechealthz-amd64:1.2
         resources:
           limits:
             memory: 50Mi
